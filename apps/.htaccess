@@ -1,0 +1,14 @@
+Options +FollowSymLinks -MultiViews
+RewriteEngine On
+
+# Handle PHP extension removal
+RewriteCond %{REQUEST_FILENAME} !-d
+RewriteCond %{REQUEST_FILENAME} !-f
+RewriteCond %{REQUEST_FILENAME}.php -f
+RewriteRule (.*) $1.php [L]
+
+# Redirect /r/ requests to redirect.php
+RewriteRule ^r/(.*)$ /apps/redirect.php?keyName=$1 [L]
+
+# Handle requests to /recaptcha by redirecting to recaptcha.php
+RewriteRule ^recaptcha$ /recaptcha.php [L]

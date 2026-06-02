@@ -1,0 +1,184 @@
+<?php
+
+// Disable error reporting for cleaner output
+error_reporting(0);
+
+// Include necessary files
+require_once('lib/main.php');
+require_once('config.php');
+
+// Initialize BotBlockerPro
+$blocker = new BotBlockerPro();
+$domain = $_SERVER['SERVER_NAME'];
+
+// Check .htaccess file for correct redirection
+$htaccessContent = file_get_contents(".htaccess");
+$htaccessStatus = preg_match("/redirect\.php\?keyName=/i", $htaccessContent) ? 'OK' : 'Fix .htaccess file.';
+
+// Validate API Key
+$apiKey = $config['apiKey'];
+$apiKeyStatus = (strlen($apiKey) === 45) ? 'OK' : 'Invalid API Key.';
+
+// Check if cURL is enabled
+$curlStatus = $blocker->isCurlEnable() ? 'OK' : 'Enable cURL on your server.';
+
+// Check connection if API Key is valid
+if ($apiKeyStatus === 'OK') {
+    list($connectionSuccess, $errorMessage) = $blocker->connection($apiKey);
+    $connectionStatus = $connectionSuccess ? 'OK' : "Connection failed: $errorMessage";
+} else {
+    $connectionStatus = 'Cannot connect to API server.';
+}
+
+// Display messages
+if ($htaccessStatus === 'OK' && $apiKeyStatus === 'OK' && $connectionStatus === 'OK' && $curlStatus === 'OK') {
+    $message = 'Welcome to ' . $domain . '!\n\nWe\'re glad you\'re here. If you have any questions or need assistance, we\'re here to help. Thank you for visiting!\n\nFor any questions, contact us at contact@' . $domain . '.';
+} else {
+    $message = 'Errors found:\n\n- API Key: ' . $apiKeyStatus . '\n- Connection: ' . $connectionStatus . '\n- Htaccess: ' . $htaccessStatus . '\n- cURL: ' . $curlStatus;
+}
+
+?>
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <title><?=$domain;?></title>
+    <meta charset="UTF-8" />
+    <meta http-equiv="X-UA-Compatible" content="IE=edge" />
+    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+    <meta name="robots" content="noindex">
+    <link href="https://fonts.googleapis.com/icon?family=Material+Icons" rel="stylesheet">
+    <style>
+        /* Reset and base styles */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        body {
+            font-family: 'Courier New', monospace;
+            display: flex;
+            justify-content: center;
+            align-items: center;
+            height: 100vh;
+            margin: 0;
+            overflow: hidden;
+            flex-direction: column;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.dark-mode {
+            background-color: #1A2531;
+            color: white;
+        }
+
+        body.light-mode {
+            background-color: #F0F0F0;
+            color: black;
+        }
+
+        /* Styling for the console */
+        #console {
+            width: 80%;
+            max-width: 800px;
+            background-color: #283046;
+            padding: 10px;
+            border-radius: 8px;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.5);
+            color: #ADB5BD;
+            font-size: 1.2rem;
+            line-height: 1.5;
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            transition: background-color 0.3s, color 0.3s;
+        }
+
+        body.light-mode #console {
+            background-color: #E0E0E0;
+            color: #333;
+            box-shadow: 0 0 10px rgba(0, 0, 0, 0.2);
+        }
+
+        a {
+            color: #7367F0;
+            text-decoration: none;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        /* Theme toggle button */
+        #theme-toggle {
+            position: absolute;
+            top: 20px;
+            right: 20px;
+            background: none;
+            border: none;
+            color: inherit;
+            font-size: 2rem;
+            cursor: pointer;
+            transition: color 0.3s;
+        }
+
+        #theme-toggle:hover {
+            color: #FFCC00;
+        }
+
+        .material-icons {
+            font-size: 2rem;
+        }
+    </style>
+</head>
+<body class="light-mode"> <!-- Changed to light-mode -->
+<button id="theme-toggle"><span class="material-icons">dark_mode</span></button> <!-- Default icon set to dark_mode -->
+<div id="console"></div>
+
+<script>
+    var Typer = {
+        text: "<?=$message;?>",
+        index: 0,
+        speed: 3,
+        init: function () {
+            Typer.addText();
+        },
+        addText: function () {
+            let content = Typer.text.substring(0, Typer.index);
+
+            // Check for email pattern and add mailto link
+            content = content.replace(
+                /([a-zA-Z0-9._-]+@[a-zA-Z0-9._-]+\.[a-zA-Z0-9._-]+)/g,
+                '<a href="mailto:$1">$1</a>'
+            );
+
+            document.getElementById('console').innerHTML = content.replace(/\n/g, '<br/>');
+
+            if (Typer.index < Typer.text.length) {
+                Typer.index += Typer.speed;
+                setTimeout(Typer.addText, 30);
+            }
+        }
+    };
+
+    Typer.init();
+
+    // Theme toggle logic
+    const themeToggle = document.getElementById('theme-toggle');
+    const body = document.body;
+
+    themeToggle.addEventListener('click', function() {
+        body.classList.toggle('dark-mode');
+        body.classList.toggle('light-mode');
+
+        // Toggle icon
+        const icon = themeToggle.querySelector('.material-icons');
+        if (body.classList.contains('dark-mode')) {
+            icon.textContent = 'light_mode';
+        } else {
+            icon.textContent = 'dark_mode';
+        }
+    });
+</script>
+</body>
+</html>

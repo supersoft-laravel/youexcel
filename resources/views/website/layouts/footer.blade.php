@@ -608,7 +608,12 @@
                                 <li>
                                     <a href="#">Government Inquiry</a>
                                     <ul>
-                                        <li><a href="{{ route('project.form') }}">NAVTTC</a></li>
+                                        <li>
+                                            <a href="#">NAVTTC</a>
+                                            <ul>
+                                                <li><a href="{{ route('enquiry.navttcsotb1') }}">Skills of Tomorrow Form</a></li>
+                                            </ul>
+                                        </li>
                                         <li><a href="{{ route('benazir.form') }}">Benazir Program</a></li>
                                     </ul>
                                 </li>
@@ -666,7 +671,12 @@
                         <li>
                             <a href="#">FAQs</a>
                             <ul class="submenu">
-                                <li><a href="{{ route('faqs-navttc') }}">NAVTTC FAQs</a></li>
+                                <li>
+                                    <a href="#">NAVTTC FAQs</a>
+                                    <ul>
+                                        <li><a href="{{ route('faqs-navttcsotb1') }}">Skills of Tomorrow FAQs</a></li>
+                                    </ul>
+                                </li>
                                 <li><a href="{{ route('faqs-bbshrrdb') }}">Benazir FAQs</a></li>
                                 <li><a href="{{ route('faqs') }}">YouExcel FAQs</a></li>
                                 <li><a href="{{ route('faqs-career-connect') }}">Career Connect FAQs</a></li>
@@ -795,8 +805,8 @@
                                 <li><a href="{{ route('enquiry.corporate') }}">CORPORATE ENQUIRY</a></li>
                                 <li><a href="{{ route('demo.confirmation') }}">DEMO CONFIRMATION</a></li>
                                 <li><a href="{{ route('benazir.form') }}">BBSHRRDB ENQUIRY</a></li>
-                                <li style="margin-bottom: 15px;"><a href="{{ route('project.form') }}">PROJECT
-                                        ENQUIRY</a></li>
+                                <li><a href="{{ route('project.form') }}">PROJECT ENQUIRY</a></li>
+                                <li style="margin-bottom: 15px;"><a href="{{ route('enquiry.navttcsotb1') }}">SKILLS OF TOMORROW FORM</a></li>
                             </ul>
                         </li>
 
@@ -846,7 +856,7 @@
                                 <!-- Collapsible List -->
                                 <ul class="collapse mt-2" id="faqs">
                                     <li>
-                                        <a href="{{ route('faqs-navttc') }}">NAVTTC FAQs</a>
+                                        <a href="{{ route('faqs-navttcsotb1') }}">SKILLS OF TOMORROW FAQs</a>
                                     </li>
                                     <li>
                                         <a href="{{ route('faqs-bbshrrdb') }}">BBSHRRDB FAQs</a>

@@ -327,11 +327,6 @@
                     <div class="notice-content">
                 
                         <div class="notice-item">
-                            <i class="fas fa-play-circle"></i>
-                            <div>Watch the tutorial to Register in NAVTTC Portal: <a href="" target="_blank">Click Here</a></div>
-                        </div>
-                
-                        <div class="notice-item">
                             <i class="fas fa-map-marker-alt"></i>
                             <div>You can also visit YouExcel to register</div>
                         </div>

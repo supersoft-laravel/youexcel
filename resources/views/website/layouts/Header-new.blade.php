@@ -100,7 +100,7 @@
                     <ul class="submenu">
                         <li><a href="{{ route('page.courses') }}">Training Programs</a></li>
                         <li><a href="{{ route('web.corporate-customized-training') }}">Corporate Programs</a></li>
-                        <li><a href="#">Government Sponsored Programs</a></li>
+                        <li><a href="{{ route('govsp.index') }}">Government Sponsored Programs</a></li>
                     </ul>
                 </li>
                 <li>
@@ -182,7 +182,7 @@ Header Area
                                         <ul class="sub-menu">
                                             <li><a href="{{ route('page.courses') }}">Training Programs</a></li>
                                             <li><a href="{{ route('web.corporate-customized-training') }}">Corporate Programs</a></li>
-                                            <li><a href="#">Government Sponsored Programs</a></li>
+                                            <li><a href="{{ route('govsp.index') }}">Government Sponsored Programs</a></li>
                                         </ul>
                                     </li>
                                     <li>

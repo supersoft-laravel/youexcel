@@ -430,6 +430,22 @@ Route::get('/faqs-career-connect', function () {
 Route::get('/faqs-navttc', function () {
     return view('website.navttc-faqs');
 })->name('faqs-navttc');
+Route::get('/faqs-navttcsotb1', function () {
+    return view('website.navttcsotb1-faqs');
+})->name('faqs-navttcsotb1');
+Route::get('/navttcsotb1', function () {
+    return view('website.navttcsotb1');
+})->name('navttc.sotb1');
+// Government Sponsored Programs
+Route::get('/govsp', function () {
+    return view('website.govsp.index');
+})->name('govsp.index');
+Route::get('/govsp/navttcsotb1', function () {
+    // Read-only: fetch data-science video URL to keep same video as that page
+    $dsVideo = \App\Models\Courses::where('slug', 'data-science')->value('video_url');
+    $videoUrl = $dsVideo ?? 'uploads/courses/videos/default.mp4';
+    return view('website.govsp.navttcsotb1', compact('videoUrl'));
+})->name('govsp.navttcsotb1');
 Route::get('/Careers', [CareerFormController::class, 'websiteCareerForm'])->name('website.career');
 
 
@@ -667,10 +683,15 @@ Route::post('/scholarship-submit',[\App\Http\Controllers\HomeController::class,'
 Route::get('/1-Minute-Feedback/{course}',[\App\Http\Controllers\HomeController::class,'oneMintFeedbackForm']);
 Route::post('/1-Minute-Feedback-submit',[\App\Http\Controllers\HomeController::class,'oneMintFeedbackFormSubmit']);
 
-// website Route 
+// website Route
 // Route::get('/enquiry-form-project',[ProjectController::class,'project_form'])->name('project.form');
 Route::get('/enquiry-form-project/{course?}', [ProjectController::class, 'project_form'])->name('project.form');
 Route::post('/enquiry-form-project-store',[ProjectController::class,'storeprojectwebsite'])->name('store.project.website');
+
+// NAVTTC Skills of Tomorrow Batch 1 — enquiry form (Task 1)
+Route::get('/enquiry-form-project-navttcsotb1', function () {
+    return view('website.pages.enquiry-forms.navttcsotb1_enquiry');
+})->name('enquiry.navttcsotb1');
 
 Route::get('/enquiry-form-project-bbshrrdb', [ProjectController::class, 'benazir_form'])->name('benazir.form');
 Route::post('/benazir-form-project-store',[ProjectController::class,'storeprojectbenazir'])->name('store.project.benazir');

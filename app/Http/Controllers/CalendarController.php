@@ -244,14 +244,14 @@ class CalendarController extends Controller
     }
 
     public function WebCalender() {
-        $calendars = Calendar::with('course')->where('is_active', '1')->orderBy('class_date', 'ASC')->get()->groupBy(function ($item) {
+        $calendars = Calendar::with('course')->where('is_active', '1')->orderByRaw("CASE WHEN class_date >= CURDATE() THEN 0 ELSE 1 END")->orderBy('class_date', 'ASC')->get()->groupBy(function ($item) {
             return Carbon::parse($item->class_date)->format('F');
         });
         return view('website.pages.calendar', compact('calendars'));
     }
-    
+
     public function newCalender() {
-        $calendars = Calendar::with('course')->where('is_active', '1')->orderBy('class_date', 'ASC')->get()->groupBy(function ($item) {
+        $calendars = Calendar::with('course')->where('is_active', '1')->orderByRaw("CASE WHEN class_date >= CURDATE() THEN 0 ELSE 1 END")->orderBy('class_date', 'ASC')->get()->groupBy(function ($item) {
             return Carbon::parse($item->class_date)->format('F');
         });
         return view('website.pages.calendar', compact('calendars'));

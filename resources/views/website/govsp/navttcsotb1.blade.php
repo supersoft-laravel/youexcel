@@ -96,11 +96,6 @@
                                 FAQs
                             </button>
                         </li>
-                        <li class="nav-item">
-                            <button class="nav-link" data-bs-toggle="tab" data-bs-target="#sotb-videos">
-                                Testimonial Videos
-                            </button>
-                        </li>
                     </ul>
 
                     <div class="tab-content">
@@ -341,72 +336,6 @@
 
                         </div>
 
-                        <!-- TESTIMONIAL VIDEOS -->
-                        <div class="tab-pane fade" id="sotb-videos" role="tabpanel">
-
-                            <section class="py-4">
-                                <div class="container">
-                                    <div class="row g-3">
-                                        @php
-                                            $vids = [
-                                                'ckvKV-aYuPQ',
-                                                'Q_UqyHImyqg',
-                                                'x0-DUqhSoaY',
-                                                '_1--NjJ8qfE',
-                                                'biCYptfmT-I',
-                                            ];
-                                        @endphp
-                                        @foreach ($vids as $vid)
-                                        <div class="col-sm-6 col-md-4">
-                                            <div class="card border-0 shadow-sm" style="border-radius:10px;overflow:hidden;cursor:pointer;"
-                                                 onclick="sotbPlay('{{ $vid }}')">
-                                                <div style="position:relative;">
-                                                    <img src="https://img.youtube.com/vi/{{ $vid }}/mqdefault.jpg"
-                                                         alt="Testimonial" class="img-fluid w-100"
-                                                         style="height:150px;object-fit:cover;" loading="lazy">
-                                                    <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
-                                                        <div style="width:46px;height:46px;background:rgba(220,0,0,0.85);border-radius:50%;display:flex;align-items:center;justify-content:center;">
-                                                            <i class="fas fa-play" style="color:#fff;font-size:16px;margin-left:3px;"></i>
-                                                        </div>
-                                                    </div>
-                                                </div>
-                                            </div>
-                                        </div>
-                                        @endforeach
-                                    </div>
-                                </div>
-                            </section>
-
-                            {{-- Video modal --}}
-                            <div id="sotbModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;">
-                                <div style="width:90%;max-width:860px;position:relative;">
-                                    <div onclick="sotbClose()" style="position:absolute;top:-40px;right:0;width:34px;height:34px;background:rgba(200,0,0,0.8);border-radius:50%;display:flex;align-items:center;justify-content:center;cursor:pointer;">
-                                        <i class="fas fa-times" style="color:#fff;font-size:15px;"></i>
-                                    </div>
-                                    <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;">
-                                        <iframe id="sotbIframe" src="" allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture" allowfullscreen
-                                            style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
-                                    </div>
-                                </div>
-                            </div>
-                            <script>
-                            window.sotbPlay = function(id) {
-                                document.getElementById('sotbIframe').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
-                                document.getElementById('sotbModal').style.display = 'flex';
-                                document.body.style.overflow = 'hidden';
-                            };
-                            window.sotbClose = function() {
-                                document.getElementById('sotbIframe').src = '';
-                                document.getElementById('sotbModal').style.display = 'none';
-                                document.body.style.overflow = '';
-                            };
-                            document.addEventListener('click', function(e) {
-                                if (e.target === document.getElementById('sotbModal')) window.sotbClose();
-                            });
-                            </script>
-
-                        </div>
-
                     </div>
                 </div>
 
@@ -440,7 +369,188 @@
         </div>
     </div>
 
-    {{-- Exact same contact section include as course-details.blade.php --}}
-    @include('website.courses.sections.contact', ['courseName' => 'Skills of Tomorrow – Freelancing (NAVTTC)'])
+    {{-- ══ Student Testimonials Carousel ══ --}}
+    <section style="background:#f7f9fc;padding:60px 0 70px;">
+        <div class="container">
+            <h2 class="text-center fw-bold mb-5" style="color:#1a2a3a;">Student Testimonials</h2>
+
+            <div style="position:relative;max-width:1200px;margin:0 auto;">
+
+                {{-- Left arrow --}}
+                <button id="sotb-prev"
+                        style="position:absolute;left:-28px;top:50%;transform:translateY(-50%);z-index:10;
+                               background:transparent;border:none;color:#002347;font-size:22px;
+                               cursor:pointer;padding:0;line-height:1;">
+                    <i class="fas fa-chevron-left"></i>
+                </button>
+
+                {{-- Carousel viewport --}}
+                <div id="sotb-viewport" style="overflow:hidden;">
+                    <div id="sotb-track" style="display:flex;transition:transform 0.5s ease;">
+
+                        @php
+                            $testimonials = [
+                                ['id'=>'ckvKV-aYuPQ', 'name'=>'Bakhtawar Shah',  'batch'=>'Digital Marketing 2022'],
+                                ['id'=>'Q_UqyHImyqg', 'name'=>'Hammad',          'batch'=>'PMYSDP Batch 2018'],
+                                ['id'=>'x0-DUqhSoaY', 'name'=>'Ureba Abdul Jabbar','batch'=>'Digital Marketing 2022'],
+                                ['id'=>'_1--NjJ8qfE', 'name'=>'Student',         'batch'=>'YouExcel Alumni'],
+                            ];
+                        @endphp
+
+                        @foreach ($testimonials as $t)
+                        <div class="sotb-slide" style="flex:0 0 calc(100% / 3);padding:0 10px;box-sizing:border-box;">
+                            <div style="border-radius:12px;overflow:hidden;box-shadow:0 4px 16px rgba(0,0,0,0.1);
+                                        cursor:pointer;background:#000;position:relative;"
+                                 onclick="sotbPlay('{{ $t['id'] }}')">
+                                <img src="https://img.youtube.com/vi/{{ $t['id'] }}/mqdefault.jpg"
+                                     alt="{{ $t['name'] }}"
+                                     style="width:100%;height:220px;object-fit:cover;display:block;opacity:0.88;">
+                                {{-- Play button overlay --}}
+                                <div style="position:absolute;inset:0;display:flex;align-items:center;justify-content:center;">
+                                    <div style="width:52px;height:52px;background:rgba(220,0,0,0.88);
+                                                border-radius:50%;display:flex;align-items:center;justify-content:center;
+                                                transition:transform 0.2s;">
+                                        <i class="fas fa-play" style="color:#fff;font-size:18px;margin-left:4px;"></i>
+                                    </div>
+                                </div>
+                                {{-- Name badge --}}
+                                <div style="position:absolute;bottom:0;left:0;right:0;
+                                            background:linear-gradient(transparent,rgba(0,0,0,0.75));
+                                            padding:20px 14px 10px;">
+                                    <div style="color:#fff;font-weight:700;font-size:0.85rem;">{{ $t['name'] }}</div>
+                                    <div style="color:rgba(255,255,255,0.8);font-size:0.78rem;">{{ $t['batch'] }}</div>
+                                </div>
+                            </div>
+                        </div>
+                        @endforeach
+
+                    </div>
+                </div>
+
+                {{-- Right arrow --}}
+                <button id="sotb-next"
+                        style="position:absolute;right:-28px;top:50%;transform:translateY(-50%);z-index:10;
+                               background:transparent;border:none;color:#002347;font-size:22px;
+                               cursor:pointer;padding:0;line-height:1;">
+                    <i class="fas fa-chevron-right"></i>
+                </button>
+
+            </div>
+
+            {{-- Dot indicators --}}
+            <div id="sotb-dots" style="display:flex;justify-content:center;gap:8px;margin-top:24px;"></div>
+
+        </div>
+    </section>
+
+    {{-- Video modal --}}
+    <div id="sotbModal" style="display:none;position:fixed;inset:0;background:rgba(0,0,0,0.88);z-index:9999;align-items:center;justify-content:center;">
+        <div style="width:90%;max-width:860px;position:relative;">
+            <div onclick="sotbClose()"
+                 style="position:absolute;top:-40px;right:0;width:34px;height:34px;
+                        background:rgba(200,0,0,0.85);border-radius:50%;display:flex;
+                        align-items:center;justify-content:center;cursor:pointer;">
+                <i class="fas fa-times" style="color:#fff;font-size:15px;"></i>
+            </div>
+            <div style="position:relative;padding-bottom:56.25%;height:0;border-radius:10px;overflow:hidden;">
+                <iframe id="sotbIframe" src=""
+                        allow="accelerometer;autoplay;clipboard-write;encrypted-media;gyroscope;picture-in-picture"
+                        allowfullscreen
+                        style="position:absolute;inset:0;width:100%;height:100%;border:none;"></iframe>
+            </div>
+        </div>
+    </div>
+
+    <script>
+    (function () {
+        var total     = 4;   // total video cards
+        var visible   = 3;   // cards shown at once
+        var maxIndex  = total - visible; // 1
+        var current   = 0;
+        var autoTimer = null;
+
+        var track     = document.getElementById('sotb-track');
+        var viewport  = document.getElementById('sotb-viewport');
+        var dotsBox   = document.getElementById('sotb-dots');
+
+        // Build dot indicators
+        for (var d = 0; d <= maxIndex; d++) {
+            var dot = document.createElement('div');
+            dot.setAttribute('data-idx', d);
+            dot.style.cssText = 'width:10px;height:10px;border-radius:50%;cursor:pointer;transition:background 0.3s;';
+            dot.style.background = d === 0 ? '#002347' : '#c0cad6';
+            dot.addEventListener('click', (function(i){ return function(){ goTo(i); resetTimer(); }; })(d));
+            dotsBox.appendChild(dot);
+        }
+
+        function updateDots() {
+            var dots = dotsBox.querySelectorAll('div');
+            dots.forEach(function(d, i) {
+                d.style.background = i === current ? '#002347' : '#c0cad6';
+            });
+        }
+
+        function goTo(n) {
+            current = ((n % (maxIndex + 1)) + (maxIndex + 1)) % (maxIndex + 1);
+            var itemW = viewport.offsetWidth / visible;
+            track.style.transform = 'translateX(' + (-current * itemW) + 'px)';
+            updateDots();
+        }
+
+        document.getElementById('sotb-prev').addEventListener('click', function () {
+            goTo(current - 1); resetTimer();
+        });
+        document.getElementById('sotb-next').addEventListener('click', function () {
+            goTo(current + 1); resetTimer();
+        });
+
+        function startTimer() {
+            autoTimer = setInterval(function () { goTo(current + 1); }, 4000);
+        }
+        function resetTimer() {
+            clearInterval(autoTimer); startTimer();
+        }
+
+        // Recalc on resize
+        window.addEventListener('resize', function () { goTo(current); });
+
+        startTimer();
+
+        // Modal
+        window.sotbPlay = function (id) {
+            document.getElementById('sotbIframe').src = 'https://www.youtube.com/embed/' + id + '?autoplay=1';
+            document.getElementById('sotbModal').style.display = 'flex';
+            document.body.style.overflow = 'hidden';
+            clearInterval(autoTimer);
+        };
+        window.sotbClose = function () {
+            document.getElementById('sotbIframe').src = '';
+            document.getElementById('sotbModal').style.display = 'none';
+            document.body.style.overflow = '';
+            startTimer();
+        };
+        document.addEventListener('click', function (e) {
+            if (e.target === document.getElementById('sotbModal')) window.sotbClose();
+        });
+
+        // Mobile: show 1 visible
+        function applyResponsive() {
+            var slides = document.querySelectorAll('.sotb-slide');
+            if (window.innerWidth < 768) {
+                visible = 1; maxIndex = total - 1;
+                slides.forEach(function(s){ s.style.flex = '0 0 100%'; });
+            } else if (window.innerWidth < 992) {
+                visible = 2; maxIndex = total - 2;
+                slides.forEach(function(s){ s.style.flex = '0 0 50%'; });
+            } else {
+                visible = 3; maxIndex = total - 3;
+                slides.forEach(function(s){ s.style.flex = '0 0 calc(100% / 3)'; });
+            }
+            goTo(0);
+        }
+        applyResponsive();
+        window.addEventListener('resize', applyResponsive);
+    })();
+    </script>
 
 @endsection

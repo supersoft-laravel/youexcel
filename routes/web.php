@@ -707,6 +707,12 @@ Route::delete('/projectreg-form/bulk-delete', [ProjectController::class, 'bulkDe
 Route::get('/dashboard', function () {
     return redirect()->route('admin.dashboard');
 });
+
+// Public routes — must be outside the auth middleware group
+Route::get('webinars', [WebinarController::class, 'webWebinars'])->name('webinars.web');
+Route::get('blogs/{blogSlug?}', [BlogController::class, 'WebBlog'])->name('blogs.web');
+Route::post('blogs/comment', [BlogController::class, 'submitComment'])->name('blogs.comment.submit');
+
 Auth::routes();
 Route::middleware(['auth', 'verified'])->group(function () {
     Route::get('/deactivated', function () {
@@ -916,14 +922,10 @@ Route::middleware(['auth', 'verified'])->group(function () {
         
         Route::resource('admin/webinars', WebinarController::class);
         Route::get('admin/webinars/status/{id}', [WebinarController::class, 'updateStatus'])->name('webinars.status.update');
-        Route::get('webinars', [WebinarController::class, 'webWebinars'])->name('webinars.web');
-        
+
         Route::resource('admin/blogs', BlogController::class);
         Route::get('admin/blogs/status/{id}', [BlogController::class, 'updateStatus'])->name('blogs.status.update');
-        
-        Route::get('blogs/{blogSlug?}', [BlogController::class, 'WebBlog'])->name('blogs.web');
-        Route::post('blogs/comment', [BlogController::class, 'submitComment'])->name('blogs.comment.submit');
-        
+
         Route::get('admin/comments/{id}', [BlogController::class, 'blogComments'])->name('blogs.comments.index');
         Route::get('admin/comments/{id}/create', [BlogController::class, 'blogCommentCreate'])->name('blogs.comments.create');
         Route::post('admin/comments/{id}/store', [BlogController::class, 'blogCommentStore'])->name('blogs.comments.store');

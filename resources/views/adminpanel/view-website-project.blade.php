@@ -45,7 +45,7 @@
         <div class="container-fluid">
                 <div class="row">
                     <div class="col-lg-12" style="overflow-x: scroll;">
-                        <h1 class="text-center">View Project Table</h1>
+                        <h1 class="text-center">NAVTTC Enquiry Form</h1>
                         <div class="mb-3">
                             <a href="{{ route('export.project.csv') }}" class="btn btn-success">Download CSV</a>
                             <a href="{{ route('export.project.excel') }}" class="btn btn-info">Download Excel</a>

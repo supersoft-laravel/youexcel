@@ -818,6 +818,8 @@ Route::middleware(['auth', 'verified'])->group(function () {
         Route::get('/view-projectform', [ProjectController::class, 'viewprojectform'])->name('view.project.form');
         Route::get('/view-projectformdelete/{id}', [ProjectController::class, 'viewprojectformdelete'])->name('project.form.delete');
         Route::delete('/projectform/bulk-delete', [ProjectController::class, 'bulkDelete'])->name('project.form.bulkDelete');
+        Route::get('/export-project/csv', [ProjectController::class, 'exportProjectCsv'])->name('export.project.csv');
+        Route::get('/export-project/excel', [ProjectController::class, 'exportProjectExcel'])->name('export.project.excel');
         
         Route::get('/view-bbshrrdb-form', [ProjectController::class, 'viewbbshrrdbform'])->name('view.bbshrrdb.form');
         Route::get('/view-bbshrrdb-form-delete/{id}', [ProjectController::class, 'viewbbshrrdbformdelete'])->name('bbshrrdb.form.delete');

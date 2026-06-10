@@ -702,9 +702,96 @@ class ProjectController extends Controller
         }
     
         ProjectRegistration::whereIn('id', $ids)->delete();
-    
+
         return back()->with('success', 'Selected records deleted successfully.');
     }
 
+    public function exportProjectCsv()
+    {
+        $fileName = 'navttc-enquiry-forms.csv';
+
+        $records = WebsiteProject::orderBy('id', 'desc')->get();
+
+        $headers = [
+            "Content-Type"        => "text/csv",
+            "Content-Disposition" => "attachment; filename=\"$fileName\"",
+        ];
+
+        $columns = [
+            'S.No', 'Name', 'City', 'WhatsApp No', 'Email',
+            'Submitted At', 'Trade Preference', 'Last Education',
+            'Age', 'Preferred Timing', 'Comments',
+        ];
+
+        $callback = function() use ($records, $columns) {
+            $file = fopen('php://output', 'w');
+            fputcsv($file, $columns);
+
+            $i = 1;
+            foreach ($records as $row) {
+                $timings = json_decode($row->preferred_timing, true);
+                fputcsv($file, [
+                    $i++,
+                    $row->name,
+                    $row->city,
+                    $row->whatsapp,
+                    $row->email,
+                    \Carbon\Carbon::parse($row->created_at)->format('d M Y, h:i A'),
+                    $row->project_name,
+                    $row->project_name_2,
+                    $row->age,
+                    $timings ? implode(', ', $timings) : '',
+                    $row->comments,
+                ]);
+            }
+
+            fclose($file);
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
+
+    public function exportProjectExcel()
+    {
+        $fileName = 'navttc-enquiry-forms.xls';
+
+        $records = WebsiteProject::orderBy('id', 'desc')->get();
+
+        $headers = [
+            "Content-Type"        => "application/vnd.ms-excel",
+            "Content-Disposition" => "attachment; filename=\"$fileName\"",
+        ];
+
+        $callback = function() use ($records) {
+            echo '<table border="1">';
+            echo '<tr>';
+            foreach (['S.No','Name','City','WhatsApp No','Email','Submitted At','Trade Preference','Last Education','Age','Preferred Timing','Comments'] as $col) {
+                echo '<th>' . htmlspecialchars($col) . '</th>';
+            }
+            echo '</tr>';
+
+            $i = 1;
+            foreach ($records as $row) {
+                $timings = json_decode($row->preferred_timing, true);
+                echo '<tr>';
+                echo '<td>' . $i++ . '</td>';
+                echo '<td>' . htmlspecialchars($row->name ?? '') . '</td>';
+                echo '<td>' . htmlspecialchars($row->city ?? '') . '</td>';
+                echo '<td>' . htmlspecialchars($row->whatsapp ?? '') . '</td>';
+                echo '<td>' . htmlspecialchars($row->email ?? '') . '</td>';
+                echo '<td>' . \Carbon\Carbon::parse($row->created_at)->format('d M Y, h:i A') . '</td>';
+                echo '<td>' . htmlspecialchars($row->project_name ?? '') . '</td>';
+                echo '<td>' . htmlspecialchars($row->project_name_2 ?? '') . '</td>';
+                echo '<td>' . htmlspecialchars($row->age ?? '') . '</td>';
+                echo '<td>' . htmlspecialchars($timings ? implode(', ', $timings) : '') . '</td>';
+                echo '<td>' . htmlspecialchars($row->comments ?? '') . '</td>';
+                echo '</tr>';
+            }
+
+            echo '</table>';
+        };
+
+        return response()->stream($callback, 200, $headers);
+    }
 
 }

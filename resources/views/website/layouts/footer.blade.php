@@ -625,13 +625,13 @@
                             <a href="#">Registration Forms</a>
                             <ul class="submenu">
                                 <li><a href="{{ url('registration_form') }}">Open Enrollment Form</a></li>
-                                <li>
+                                {{-- <li>
                                     <a href="#">Government</a>
                                     <ul>
                                         <li><a href="#">NAVTTC</a></li>
                                         <li><a href="{{ route('registration-form-project') }}">Benazir</a></li>
                                     </ul>
-                                </li>
+                                </li> --}}
                             </ul>
                         </li>
 

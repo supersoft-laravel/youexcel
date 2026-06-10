@@ -99,7 +99,7 @@
                             Please visit YouExcel to complete registration.
                         </p>
 
-                        <h4 class="text-center">Project Enquiry Form</h4>
+                        <h4 class="text-center">Enquiry Form</h4>
 
                         {{-- Submits to the same endpoint used by the existing project_form --}}
                         <form action="{{ route('store.project.website') }}" method="POST">
@@ -141,11 +141,8 @@
                                     <label for="project_name">Trade Preference <span style="color: red;">*</span></label>
                                     <select class="form-control select2" name="project_name[]"
                                             id="project_name" multiple required>
-                                        <option value="Earning Money through Freelancing">Earning Money through Freelancing</option>
                                         <option value="AI for Everyone">AI for Everyone</option>
                                         <option value="AI Augmented Digital Marketing &amp; SEO">AI Augmented Digital Marketing &amp; SEO</option>
-                                        <option value="AI Powered Ecommerce">AI Powered Ecommerce</option>
-                                        <option value="AI Augmented Graphic Design &amp; Video Editing">AI Augmented Graphic Design &amp; Video Editing</option>
                                         <option value="AI Financial Analyst with Power BI">AI Financial Analyst with Power BI</option>
                                     </select>
                                 </div>

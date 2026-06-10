@@ -125,11 +125,8 @@
 
                                     @php
                                         $sotbCourses = [
-                                            'Earning Money through Freelancing',
                                             'AI for Everyone',
                                             'AI Augmented Digital Marketing & SEO',
-                                            'AI Powered E-Commerce',
-                                            'AI Augmented Graphic Design and Video Editing',
                                             'AI Financial Analyst with Power BI',
                                         ];
                                         $colors = ['primary','purple','success','warning','danger','info'];

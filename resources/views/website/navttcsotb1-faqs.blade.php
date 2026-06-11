@@ -133,12 +133,9 @@
                                                     </tr>
                                                 </thead>
                                                 <tbody>
-                                                    <tr><td>1</td><td>Earning Money through Freelancing</td><td>Intermediate</td><td>3 Months</td></tr>
-                                                    <tr><td>2</td><td>AI for Everyone</td><td>Intermediate</td><td>3 Months</td></tr>
-                                                    <tr><td>3</td><td>AI Augmented Digital Marketing &amp; SEO</td><td>Intermediate</td><td>3 Months</td></tr>
-                                                    <tr><td>4</td><td>AI Powered Ecommerce</td><td>Intermediate</td><td>3 Months</td></tr>
-                                                    <tr><td>5</td><td>AI Augmented Graphic Design &amp; Video Editing</td><td>Intermediate</td><td>3 Months</td></tr>
-                                                    <tr><td>6</td><td>AI Financial Analyst with Power BI</td><td>14 years of Education</td><td>3 Months</td></tr>
+                                                    <tr><td>1</td><td>AI for Everyone</td><td>Intermediate</td><td>3 Months</td></tr>
+                                                    <tr><td>2</td><td>AI Augmented Digital Marketing &amp; SEO</td><td>Intermediate</td><td>3 Months</td></tr>
+                                                    <tr><td>3</td><td>AI Financial Analyst with Power BI</td><td>14 years of Education</td><td>3 Months</td></tr>
                                                 </tbody>
                                             </table>
                                             <p><em>*Please note the course outlines will be shared by Government Authority when classes begin.</em></p>

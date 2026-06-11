@@ -120,7 +120,7 @@
                         <div class="tab-pane fade" id="sotb-courses">
 
                             <div class="outcomes-wrapper mt-4">
-                                <p class="fw-semibold mb-3">Courses Offered in current batch at IBA Karachi:</p>
+                                <p class="fw-semibold mb-3">Courses Offered in current batch at YouExcel Karachi:</p>
                                 <div class="row g-4">
 
                                     @php

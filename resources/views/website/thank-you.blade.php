@@ -338,8 +338,8 @@
                 
                         <div class="notice-item">
                             <i class="fab fa-whatsapp"></i>
-                            <div>WhatsApp for more details: 
-                                <a href="https://wa.me/923362586699" class="whatsapp-link">0336-2586699</a>
+                            <div>WhatsApp for more details:
+                                <a href="https://wa.me/923346699336" class="whatsapp-link">0334-6699336</a>
                             </div>
                         </div>
                 
@@ -356,7 +356,7 @@
                       <i class="fas fa-home"></i> Return to Homepage
                     </a>
                     <a
-                      href="https://youexceltraining.com/faqs-navttc"
+                      href="https://youexceltraining.com/faqs-navttcsotb1"
                       class="btn btn-secondary"
                     >
                       <i class="fas fa-book"></i> Visit FAQs

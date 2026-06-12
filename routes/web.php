@@ -441,9 +441,7 @@ Route::get('/govsp', function () {
     return view('website.govsp.index');
 })->name('govsp.index');
 Route::get('/govsp/navttcsotb1', function () {
-    // Read-only: fetch data-science video URL to keep same video as that page
-    $dsVideo = \App\Models\Courses::where('slug', 'data-science')->value('video_url');
-    $videoUrl = $dsVideo ?? 'uploads/courses/videos/default.mp4';
+    $videoUrl = 'uploads/courses/videos/navttc_video.mp4';
     return view('website.govsp.navttcsotb1', compact('videoUrl'));
 })->name('govsp.navttcsotb1');
 Route::get('/Careers', [CareerFormController::class, 'websiteCareerForm'])->name('website.career');
